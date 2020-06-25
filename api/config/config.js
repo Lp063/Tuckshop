@@ -1,7 +1,7 @@
 const dotenv    =   require('dotenv');
 var mysql       =   require('mysql');
 const util      =   require('util');
-var postmark    =   require("postmark");
+//var postmark    =   require("postmark");
 dotenv.config();
 
 const baseurl = "http://localhost:4000";
@@ -21,7 +21,7 @@ mysqlConnection.connect((err)=>{
     }
 });
 
-module.exports.emailClient = new postmark.Client(process.env.COMM_EMAIL_POSTMARK_API_TOKEN);
+//module.exports.emailClient = new postmark.Client(process.env.COMM_EMAIL_POSTMARK_API_TOKEN);
 
 var emailDefaults={
     brandUrl:baseurl,

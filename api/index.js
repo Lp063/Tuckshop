@@ -9,7 +9,7 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use("/email/images",express.static(__dirname + '\\assets\\images\\comm_mail'));
 
-var email       =   require('./model/comm_email');
+//var email       =   require('./model/comm_email');
 var users       =   require('./model/users');
 var teams       =   require('./model/teams');
 
