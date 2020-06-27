@@ -5,7 +5,7 @@ Clone Project
 
 run `npm install`
 
-Run mysql, import myflaskapp.sql &  execute available scripts below
+Run mysql, import tuckshop.sql &  execute available scripts below
 
 ## Available Scripts
 
