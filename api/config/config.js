@@ -1,8 +1,9 @@
 const dotenv    =   require('dotenv');
 var mysql       =   require('mysql');
 const util      =   require('util');
+const fs = require('fs');
 //var postmark    =   require("postmark");
-dotenv.config();
+dotenv.config({path:"../.env"});
 
 const baseurl = "http://localhost:4000";
 
@@ -12,7 +13,10 @@ const mysqlConnection = mysql.createConnection({
     password : process.env.DB_MYSQL_PASSWORD,
     database : process.env.DB_MYSQL_DATABASE
 });
-const query = util.promisify(mysqlConnection.query).bind(mysqlConnection);
+/* fs.readdirSync("../").forEach(file => {
+    console.log(file);
+  }); */
+//const query = util.promisify(mysqlConnection.query).bind(mysqlConnection);
 mysqlConnection.connect((err)=>{
     if (err) {
         console.log(err);

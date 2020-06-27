@@ -10,7 +10,7 @@ import Header from './components/layout/header';
 import AppLogin from './components/pages/AppLogin';
 import ItemsListing from './components/pages/ItemsListing';
 
-Axios.defaults.baseURL = 'http://localhost:4000/api';
+Axios.defaults.baseURL = 'http://localhost:4000/';
 // Axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 // Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
@@ -18,6 +18,8 @@ class App extends Component {
   
   state={
     user_isLoggedIn:true,
+    event_id:1,
+    event_items:[],
     teamRegistration:{
       name:"",
       lastName:"",
@@ -32,13 +34,26 @@ class App extends Component {
 
   //https://reacttraining.com/react-router/web/api/Hooks/usehistory
   
-  componentDidMount(){
-    /* Axios.get('/getAllUsers').then(function(response){
-      console.log(response);
-    }).catch(function (error) {
-      // handle error
+  /* async componentDidMount(){
+    await Axios.get("foodItems",{
+      eventId:this.state.event_id
+    }).then((response)=>{
+      this.setState({event_items:response.data.data});
+    }).then((error)=>{
       console.log(error);
-    }); */
+    });
+  } */
+
+  event_items = async ()=> {
+    await Axios.get("foodItems",{
+      eventId:this.state.event_id
+    }).then((response)=>{
+      //console.log(response);
+      //this.setState({event_items:response.data.data});
+      return response.data.data;
+    }).catch((error)=>{
+      console.log(error);
+    });
   }
 
   loginFormSubmit = (loginFormObject) => {
@@ -75,7 +90,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" render={(props)=>(!this.state.user_isLoggedIn?<AppLogin  pageParentContainerStyle={pageParentContainer} loginFormSubmit={this.loginFormSubmit} />:history.push("/itemListing") )} />
             <Route exact path="/itemListing" render={props=>(
-              this.state.user_isLoggedIn?<ItemsListing pageParentContainerStyle={pageParentContainer}  />:history.push("/")  )}/>
+              this.state.user_isLoggedIn?<ItemsListing pageParentContainerStyle={pageParentContainer}  event_items={this.event_items} />:history.push("/")  )}/>
           </Switch>
       </Router>
     //

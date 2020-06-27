@@ -1,16 +1,26 @@
 import React,{ Component } from 'react';
 import { Container, Row, Col, Button} from 'react-bootstrap';
 
-import MenuItem from '../lists/menuItem/MenuItem'
+import MenuItem from '../lists/menuItem/MenuItem';
 
 class ItemsListing extends Component{
 
-    state={
+    constructor(props) {
+        super(props);
+        this.state = {
+            totalCost:0.0,
+            itemList:[]
+        };
+    }
+    /* state={
         totalCost:0.0,
         itemList:[]
-    };
+    }; */
 
-    componentDidMount(){
+    async componentDidMount(){
+        //console.log(this.props.event_items);
+        const x = await this.props.event_items();
+        console.log(x);
         const data=[
             {
                 id:1,
@@ -77,13 +87,16 @@ class ItemsListing extends Component{
     }
 
     render(){
+        const { itemList } = this.state;
+        const itemRows = itemList.map((item)=>{
+            return <MenuItem key={item.id} item={item} menuItemIncremented={this.menuItemIncremented} menuItemDecremented={this.menuItemDecremented}/>
+        });
+
         return(
             <Container>
                 <Row lg={1} md={1} sm={1} xs={1} style={{paddingBottom:"130px"}}>
-                    {
-                        this.state.itemList.map((item)=>{
-                            return <MenuItem key={item.id} item={item} menuItemIncremented={this.menuItemIncremented} menuItemDecremented={this.menuItemDecremented}/>
-                        })
+                    { 
+                        itemList.length?itemRows:""
                     }
                     {/* <Col lg={12} md={12} sm={12} sx={12} style={{position:"fixed",bottom:"0",width:"inherit",backgroundColor: "white",boxShadow: "1px 0px 7px #7d7d7d",}}>
                         <Col lg={12} md={12} sm={12} sx={12} style={{display:"flex"}}>

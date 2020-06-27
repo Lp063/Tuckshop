@@ -1,0 +1,4 @@
+DB_MYSQL_HOST=localhost
+DB_MYSQL_USER=tuckshop
+DB_MYSQL_PASSWORD=tuckshop
+DB_MYSQL_DATABASE=tuckshop
