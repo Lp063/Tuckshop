@@ -2,6 +2,7 @@ import React,{ Component } from 'react';
 import { Container, Row, Col, Button} from 'react-bootstrap';
 
 import MenuItem from '../lists/menuItem/MenuItem';
+import LoadingAnimation from '../spaceHolders/LoadingAnimation';
 
 class ItemsListing extends Component{
 
@@ -18,49 +19,8 @@ class ItemsListing extends Component{
     }; */
 
     async componentDidMount(){
-        //console.log(this.props.event_items);
-        const x = await this.props.event_items();
-        console.log(x);
-        const data=[
-            {
-                id:1,
-                title:"Chocolate Doughnuts",
-                serving:"2/plate",
-                rate:20,
-                purchaseQuantity:0
-            },{
-                id:2,
-                title:"Cupcakes",
-                serving:"1/plate",
-                rate:10,
-                purchaseQuantity:0
-            },{
-                id:3,
-                title:"Casserolls",
-                serving:"2/plate",
-                rate:30,
-                purchaseQuantity:0
-            },{
-                id:4,
-                title:"Quesadilla",
-                serving:"2/plate",
-                rate:50,
-                purchaseQuantity:0
-            },{
-                id:5,
-                title:"Veg. Taco",
-                serving:"2/plate",
-                rate:40,
-                purchaseQuantity:0
-            },{
-                id:6,
-                title:"Croquettes",
-                serving:"3/plate",
-                rate:30,
-                purchaseQuantity:0
-            },
-        ];
-        this.setState({itemList:data});
+        const foodItemsApi = await this.props.event_items();
+        this.setState({itemList:foodItemsApi});
     }
 
     menuItemIncremented = (element,id) =>{
@@ -86,36 +46,48 @@ class ItemsListing extends Component{
         });
     }
 
-    render(){
-        const { itemList } = this.state;
-        const itemRows = itemList.map((item)=>{
-            return <MenuItem key={item.id} item={item} menuItemIncremented={this.menuItemIncremented} menuItemDecremented={this.menuItemDecremented}/>
+    resetButtonClicked = ()=>{
+        /* this.setState({itemList: this.state.itemList.map((item)=>{
+                item.purchaseQuantity = 0;
+                return item;
+            })
         });
+        this.setState({totalCost:0}); */
+    }
 
+    checkoutButtonClicked = () => {
+        const data={
+            totalCost:this.state.totalCost,
+            listOfItems:this.state.itemList.filter((item)=>{
+                return item.purchaseQuantity !==0;
+            })
+        };
+        this.props.itemsCheckedOut(data);
+    }
+
+    enableDisableResetDone = (totalCost) => {
+        var returnBool = true;
+        if (totalCost) {
+            returnBool = false;
+        }
+        return returnBool;
+    }
+
+    render(){
+        var itemRows;
+        if (this.state.itemList) {
+            const { itemList } = this.state;
+            itemRows = itemList.map((item)=>{
+                return <MenuItem key={item.id} item={item} menuItemIncremented={this.menuItemIncremented} menuItemDecremented={this.menuItemDecremented}/>
+            });
+        }
+        //console.log(LoadingAnimation)
         return(
             <Container>
                 <Row lg={1} md={1} sm={1} xs={1} style={{paddingBottom:"130px"}}>
                     { 
-                        itemList.length?itemRows:""
+                        this.state.itemList.length?itemRows:<LoadingAnimation />
                     }
-                    {/* <Col lg={12} md={12} sm={12} sx={12} style={{position:"fixed",bottom:"0",width:"inherit",backgroundColor: "white",boxShadow: "1px 0px 7px #7d7d7d",}}>
-                        <Col lg={12} md={12} sm={12} sx={12} style={{display:"flex"}}>
-                            <Col lg={6} md={6} sm={6} xs={6} style={style.menuFooter.totalTextDiv}>
-                                <label>Total:</label>
-                            </Col>
-                            <Col lg={6} md={6} sm={6} xs={6} style={style.menuFooter.numericAmountDiv}>
-                                <label>{this.state.totalCost}</label>
-                            </Col>
-                        </Col>
-                        <Col lg={12} md={12} sm={12} sx={12} style={{display:"flex"}}>
-                            <Col lg={6} md={6} sm={6} xs={6}>
-                                <Button variant="danger" style={style.menuFooter.buttons}>Reset</Button>
-                            </Col>
-                            <Col lg={6} md={6} sm={6} xs={6}>
-                                <Button variant="success" style={style.menuFooter.buttons}>Done</Button>
-                            </Col>
-                        </Col>
-                    </Col> */}
                 </Row>
                 <Row lg={1} md={1} sm={1} xs={1} style={style.menuFooter}>
                     <Col lg={12} md={12} sm={12} xs={12} style={style.menuFooter.totalAndAmountStructure}>
@@ -128,10 +100,10 @@ class ItemsListing extends Component{
                     </Col>
                     <Col lg={12} md={12} sm={12} xs={12} style={style.menuFooter.resetDoneStructure}>
                         <Col lg={6} md={6} sm={6} xs={6}>
-                            <Button variant="danger" style={style.menuFooter.buttons}>Reset</Button>
+                            <Button variant="danger" size="lg"  block onClick={this.resetButtonClicked.bind(this)} disabled={this.enableDisableResetDone(this.state.totalCost)}>Reset</Button>
                         </Col>
                         <Col lg={6} md={6} sm={6} xs={6}>
-                            <Button variant="success" style={style.menuFooter.buttons}>Done</Button>
+                            <Button variant="success" size="lg"  block onClick={this.checkoutButtonClicked.bind(this)} disabled={this.enableDisableResetDone(this.state.totalCost)}>Done</Button>
                         </Col>
                     </Col>
                 </Row>
@@ -163,7 +135,6 @@ const style={
             display:"flex"
         },
         buttons:{
-            width:"100%"
         }
     }
 }

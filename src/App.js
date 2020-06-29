@@ -18,6 +18,7 @@ class App extends Component {
   
   state={
     user_isLoggedIn:true,
+    waiter_id:3,
     event_id:1,
     event_items:[],
     teamRegistration:{
@@ -45,15 +46,24 @@ class App extends Component {
   } */
 
   event_items = async ()=> {
-    await Axios.get("foodItems",{
+    var z = await Axios.get("foodItems",{
       eventId:this.state.event_id
-    }).then((response)=>{
-      //console.log(response);
-      //this.setState({event_items:response.data.data});
-      return response.data.data;
-    }).catch((error)=>{
+    }).then(res=>{
+      return res.data.data;
+    })
+    .catch((error)=>{
       console.log(error);
     });
+    return z;
+  }
+
+  itemsCheckedOut = async (listOfItems)=>{
+    const sendData={
+      waiterId:this.state.waiter_id,
+      eventId:this.state.event_id,
+      sales:listOfItems
+    }
+    console.log(sendData);
   }
 
   loginFormSubmit = (loginFormObject) => {
@@ -90,7 +100,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" render={(props)=>(!this.state.user_isLoggedIn?<AppLogin  pageParentContainerStyle={pageParentContainer} loginFormSubmit={this.loginFormSubmit} />:history.push("/itemListing") )} />
             <Route exact path="/itemListing" render={props=>(
-              this.state.user_isLoggedIn?<ItemsListing pageParentContainerStyle={pageParentContainer}  event_items={this.event_items} />:history.push("/")  )}/>
+              this.state.user_isLoggedIn?<ItemsListing pageParentContainerStyle={pageParentContainer}  itemsCheckedOut={this.itemsCheckedOut} event_items={this.event_items} />:history.push("/")  )}/>
           </Switch>
       </Router>
     //
