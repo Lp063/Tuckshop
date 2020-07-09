@@ -17,9 +17,10 @@ Axios.defaults.baseURL = 'http://localhost:4000/';
 class App extends Component {
   
   state={
-    user_isLoggedIn:true,
-    waiter_id:3,
-    event_id:1,
+    user_isLoggedIn:false,
+    user_senior:0,
+    waiter_id:0,
+    event_id:0,
     event_items:[],
     teamRegistration:{
       name:"",
@@ -63,22 +64,42 @@ class App extends Component {
       eventId:this.state.event_id,
       sales:listOfItems
     }
-    console.log(sendData);
+    
+    var checkoutApi = await Axios.post('sales',sendData)
+    .then((response)=>{
+      return response;
+    }).catch((error)=>{
+      console.log(error);
+    });
+    return checkoutApi;
   }
 
   loginFormSubmit = (loginFormObject) => {
-    this.setState({user_isLoggedIn:true});
-    history.push("/itemListing");
-    /* Axios.post('/login',loginFormObject).then((response)=>{
-      if (typeof response.data.token != "undefined") {
+    /* this.setState({user_isLoggedIn:true});
+    history.push("/itemListing"); */
+    Axios.post('authentication/login',loginFormObject).then((response)=>{
+      
+      var userData  = response.data.data;
+      switch (userData.tbl_user_type_id) {
+        case 3:
+          this.setState({user_isLoggedIn:true});
+          this.setState({waiter_id:userData.id});
+          this.setState({user_senior:userData.senior_id});
+          this.setState({event_id:userData.eventData.id});
+          break;
+      
+        default:
+          break;
+      }
+      /* if (typeof response.data.token != "undefined") {
         this.setState({user_isLoggedIn:true});
         localStorage.setItem('authToken', response.data.token);
         history.push("/itemListing");
-      }
+      } */
     },(error)=>{
       history.push("/");
       console.log(error);
-    }); */
+    });
   }
 
   logoutClicked = () =>{

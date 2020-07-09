@@ -3,17 +3,23 @@ const jwt       =   require('jsonwebtoken');
 var cors        =   require('cors');
 const app       =   express();
 var bodyParser  =   require('body-parser');
+var config      =   require('./config/config');
 
-app.use(cors())
+app.use(cors());
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use("/email/images",express.static(__dirname + '\\assets\\images\\comm_mail'));
 
 //var email       =   require('./model/comm_email');
 var users       =   require('./model/users');
-var foodItems   =   require('./controller/foodItems');
 
+var authentication  =   require('./controller/authentication');
+var foodItems       =   require('./controller/foodItems');
+var sales           =   require('./controller/sales');
+
+app.use('/authentication',authentication);
 app.use('/foodItems',foodItems);
+app.use('/sales',sales);
 
 app.post('/api/login',(req,res)=>{
     var invalidLogin={
@@ -31,7 +37,7 @@ app.post('/api/login',(req,res)=>{
             res.setHeader('Content-Type', 'application/json');
             const thisUser = data[0];
             if (data.length) {
-                jwt.sign({userData:thisUser},'kamakazi',{expiresIn:60*60},(err,token)=>{
+                jwt.sign({userData:thisUser},config.jwtPrivateKey,{expiresIn:60*60},(err,token)=>{
                     /* console.log(jwt.decode(token).userData)
                     {
                         id: 63,

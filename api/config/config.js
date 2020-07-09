@@ -6,6 +6,7 @@ const fs = require('fs');
 dotenv.config({path:"../.env"});
 
 const baseurl = "http://localhost:4000";
+exports.jwtPrivateKey = "kamakazi";
 
 const mysqlConnection = mysql.createConnection({
     host     : process.env.DB_MYSQL_HOST,
@@ -13,9 +14,9 @@ const mysqlConnection = mysql.createConnection({
     password : process.env.DB_MYSQL_PASSWORD,
     database : process.env.DB_MYSQL_DATABASE
 });
-/* fs.readdirSync("../").forEach(file => {
-    console.log(file);
-  }); */
+
+
+
 //const query = util.promisify(mysqlConnection.query).bind(mysqlConnection);
 mysqlConnection.connect((err)=>{
     if (err) {

@@ -10,7 +10,8 @@ class ItemsListing extends Component{
         super(props);
         this.state = {
             totalCost:0.0,
-            itemList:[]
+            itemList:[],
+            itemListExist:false
         };
     }
     /* state={
@@ -20,7 +21,10 @@ class ItemsListing extends Component{
 
     async componentDidMount(){
         const foodItemsApi = await this.props.event_items();
-        this.setState({itemList:foodItemsApi});
+        if (foodItemsApi) {
+            this.setState({itemList:foodItemsApi});
+            this.setState({itemListExist:true});
+        }
     }
 
     menuItemIncremented = (element,id) =>{
@@ -46,13 +50,14 @@ class ItemsListing extends Component{
         });
     }
 
-    resetButtonClicked = ()=>{
-        /* this.setState({itemList: this.state.itemList.map((item)=>{
-                item.purchaseQuantity = 0;
-                return item;
-            })
-        });
-        this.setState({totalCost:0}); */
+    resetItemsAndTotal = async ()=>{
+
+        this.setState({itemList:[]});
+
+        const foodItemsApi = await this.props.event_items();
+        this.setState({itemList:foodItemsApi});
+
+        this.setState({totalCost:0});
     }
 
     checkoutButtonClicked = () => {
@@ -62,7 +67,13 @@ class ItemsListing extends Component{
                 return item.purchaseQuantity !==0;
             })
         };
-        this.props.itemsCheckedOut(data);
+        this.props.itemsCheckedOut(data).then(apiData =>{
+            if (apiData.data.success) {
+                this.resetItemsAndTotal();
+            } else {
+                console.log(apiData);
+            }
+        });
     }
 
     enableDisableResetDone = (totalCost) => {
@@ -75,7 +86,8 @@ class ItemsListing extends Component{
 
     render(){
         var itemRows;
-        if (this.state.itemList) {
+
+        if (this.state.itemListExist) {
             const { itemList } = this.state;
             itemRows = itemList.map((item)=>{
                 return <MenuItem key={item.id} item={item} menuItemIncremented={this.menuItemIncremented} menuItemDecremented={this.menuItemDecremented}/>
@@ -86,7 +98,7 @@ class ItemsListing extends Component{
             <Container>
                 <Row lg={1} md={1} sm={1} xs={1} style={{paddingBottom:"130px"}}>
                     { 
-                        this.state.itemList.length?itemRows:<LoadingAnimation />
+                        this.state.itemListExist?itemRows:<LoadingAnimation />
                     }
                 </Row>
                 <Row lg={1} md={1} sm={1} xs={1} style={style.menuFooter}>
@@ -100,7 +112,7 @@ class ItemsListing extends Component{
                     </Col>
                     <Col lg={12} md={12} sm={12} xs={12} style={style.menuFooter.resetDoneStructure}>
                         <Col lg={6} md={6} sm={6} xs={6}>
-                            <Button variant="danger" size="lg"  block onClick={this.resetButtonClicked.bind(this)} disabled={this.enableDisableResetDone(this.state.totalCost)}>Reset</Button>
+                            <Button variant="danger" size="lg"  block onClick={this.resetItemsAndTotal.bind(this)} disabled={this.enableDisableResetDone(this.state.totalCost)}>Reset</Button>
                         </Col>
                         <Col lg={6} md={6} sm={6} xs={6}>
                             <Button variant="success" size="lg"  block onClick={this.checkoutButtonClicked.bind(this)} disabled={this.enableDisableResetDone(this.state.totalCost)}>Done</Button>
