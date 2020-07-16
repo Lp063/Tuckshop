@@ -9,6 +9,7 @@ import  'bootstrap/dist/js/bootstrap.min.js';
 import Header from './components/layout/header';
 import AppLogin from './components/pages/AppLogin';
 import ItemsListing from './components/pages/ItemsListing';
+import Manager from './components/pages/Manager';
 
 Axios.defaults.baseURL = 'http://localhost:4000/';
 // Axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
@@ -19,6 +20,7 @@ class App extends Component {
   state={
     user_isLoggedIn:false,
     user_senior:0,
+    manager_id:0,
     waiter_id:0,
     event_id:0,
     event_items:[],
@@ -30,21 +32,6 @@ class App extends Component {
       username:""
     }
   };
-
-  
- //let history = useHistory();
-
-  //https://reacttraining.com/react-router/web/api/Hooks/usehistory
-  
-  /* async componentDidMount(){
-    await Axios.get("foodItems",{
-      eventId:this.state.event_id
-    }).then((response)=>{
-      this.setState({event_items:response.data.data});
-    }).then((error)=>{
-      console.log(error);
-    });
-  } */
 
   event_items = async ()=> {
     var z = await Axios.get("foodItems",{
@@ -81,11 +68,17 @@ class App extends Component {
       
       var userData  = response.data.data;
       switch (userData.tbl_user_type_id) {
+        case 2:
+          this.setState({user_isLoggedIn:true});
+          this.setState({manager_id:userData.id});
+          history.push("/manager");
+          break;
         case 3:
           this.setState({user_isLoggedIn:true});
           this.setState({waiter_id:userData.id});
           this.setState({user_senior:userData.senior_id});
           this.setState({event_id:userData.eventData.id});
+          history.push("/itemListing");
           break;
       
         default:
@@ -119,9 +112,13 @@ class App extends Component {
       <Router history={history}>
           <Header userLoggedin={this.state.user_isLoggedIn} logoutRedirect={this.logoutClicked} />
           <Switch>
-            <Route exact path="/" render={(props)=>(!this.state.user_isLoggedIn?<AppLogin  pageParentContainerStyle={pageParentContainer} loginFormSubmit={this.loginFormSubmit} />:history.push("/itemListing") )} />
+            <Route exact path="/" render={(props)=>(
+              !this.state.user_isLoggedIn?<AppLogin  pageParentContainerStyle={pageParentContainer} loginFormSubmit={this.loginFormSubmit} />:"" )} />
             <Route exact path="/itemListing" render={props=>(
-              this.state.user_isLoggedIn?<ItemsListing pageParentContainerStyle={pageParentContainer}  itemsCheckedOut={this.itemsCheckedOut} event_items={this.event_items} />:history.push("/")  )}/>
+              (this.state.user_isLoggedIn && this.state.waiter_id != 0) ?<ItemsListing pageParentContainerStyle={pageParentContainer}  itemsCheckedOut={this.itemsCheckedOut} event_items={this.event_items} />:""  )}/>
+            <Route exact path="/manager" render={props=>(
+                (this.state.user_isLoggedIn && this.state.manager_id !=0) ? <Manager />:"d" )}/>
+            <Route >{history.push("/")}</Route>
           </Switch>
       </Router>
     //

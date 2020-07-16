@@ -7,7 +7,7 @@ router.post('/', async function(req, res) {
     var response={
         success:0,
         message:""
-    };console.log(req.body);
+    };
     await model_sales.insertSalesData(req.body,(error,modelResponse)=>{
         if (modelResponse.affectedRows === req.body.sales.listOfItems.length ) {
             response.success=1;
