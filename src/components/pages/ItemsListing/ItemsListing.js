@@ -1,8 +1,10 @@
 import React,{ Component } from 'react';
 import { Container, Row, Col, Button} from 'react-bootstrap';
 
-import MenuItem from '../lists/menuItem/MenuItem';
-import LoadingAnimation from '../spaceHolders/LoadingAnimation';
+import MenuItem from '../../lists/menuItem/MenuItem';
+import LoadingAnimation from '../../spaceHolders/LoadingAnimation';
+
+import './ItemsListing.css';
 
 class ItemsListing extends Component{
 
@@ -93,61 +95,30 @@ class ItemsListing extends Component{
                 return <MenuItem key={item.id} item={item} menuItemIncremented={this.menuItemIncremented} menuItemDecremented={this.menuItemDecremented}/>
             });
         }
-        //console.log(LoadingAnimation)
+        
         return(
-            <Container>
-                <Row lg={1} md={1} sm={1} xs={1} style={{paddingBottom:"130px"}}>
-                    { 
-                        this.state.itemListExist?itemRows:<LoadingAnimation />
-                    }
-                </Row>
-                <Row lg={1} md={1} sm={1} xs={1} style={style.menuFooter}>
-                    <Col lg={12} md={12} sm={12} xs={12} style={style.menuFooter.totalAndAmountStructure}>
-                        <Col lg={6} md={6} sm={6} xs={6} style={style.menuFooter.totalTextDiv}>
-                            <label>Total:</label>
-                        </Col>
-                        <Col lg={6} md={6} sm={6} xs={6} style={style.menuFooter.numericAmountDiv}>
-                            <label>{this.state.totalCost}</label>
-                        </Col>
-                    </Col>
-                    <Col lg={12} md={12} sm={12} xs={12} style={style.menuFooter.resetDoneStructure}>
-                        <Col lg={6} md={6} sm={6} xs={6}>
-                            <Button variant="danger" size="lg"  block onClick={this.resetItemsAndTotal.bind(this)} disabled={this.enableDisableResetDone(this.state.totalCost)}>Reset</Button>
-                        </Col>
-                        <Col lg={6} md={6} sm={6} xs={6}>
-                            <Button variant="success" size="lg"  block onClick={this.checkoutButtonClicked.bind(this)} disabled={this.enableDisableResetDone(this.state.totalCost)}>Done</Button>
-                        </Col>
-                    </Col>
-                </Row>
-            </Container>
+            <React.Fragment>
+                <Container>
+                    <Row lg={1} md={1} sm={1} xs={1} style={{paddingBottom:"130px"}}>
+                        { 
+                            this.state.itemListExist?itemRows:<LoadingAnimation />
+                        }
+                    </Row>
+                </Container>
+                <footer className="item-listing-footer">
+                    <Container>
+                        <div className="item-listing-totals">
+                            <div className="item-listing-footer-labels"><label>Total:</label></div>
+                            <div className="item-listing-footer-labels"><label>{this.state.totalCost}</label></div>
+                        </div>
+                        <div className="item-listing-reset-done">
+                            <Button className="item-listing-footer-button button-reset" variant="danger" size="lg" onClick={this.resetItemsAndTotal.bind(this)} disabled={this.enableDisableResetDone(this.state.totalCost)}>Reset</Button>
+                            <Button className="item-listing-footer-button button-done" variant="success" size="lg" onClick={this.checkoutButtonClicked.bind(this)} disabled={this.enableDisableResetDone(this.state.totalCost)}>Done</Button>
+                        </div>
+                    </Container>
+                </footer>
+            </ React.Fragment>
         )
-    }
-}
-
-const style={
-    menuFooter:{
-        position: "fixed",
-        bottom: "0",
-        width: "100%",
-        backgroundColor: "white",
-        boxShadow: "1px 0px 7px #7d7d7d",
-        padding: "2% 0%",
-        totalAndAmountStructure:{
-            display:"flex"
-        },
-        totalTextDiv:{
-            textAlign:"right",
-            fontSize:"43px"
-        },
-        numericAmountDiv:{
-            textAlign:"right",
-            fontSize:"43px"
-        },
-        resetDoneStructure:{
-            display:"flex"
-        },
-        buttons:{
-        }
     }
 }
 

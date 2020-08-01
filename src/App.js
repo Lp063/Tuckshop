@@ -8,7 +8,7 @@ import  'bootstrap/dist/js/bootstrap.min.js';
 
 import Header from './components/layout/header';
 import AppLogin from './components/pages/AppLogin';
-import ItemsListing from './components/pages/ItemsListing';
+import ItemsListing from './components/pages/ItemsListing/ItemsListing';
 import Manager from './components/pages/Manager';
 
 Axios.defaults.baseURL = 'http://localhost:4000/';
