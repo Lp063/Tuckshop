@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import { Container, Row, Col, Button} from 'react-bootstrap';
+import { Container, Row, Button} from 'react-bootstrap';
 
 import MenuItem from '../../lists/menuItem/MenuItem';
 import LoadingAnimation from '../../spaceHolders/LoadingAnimation';
@@ -16,10 +16,6 @@ class ItemsListing extends Component{
             itemListExist:false
         };
     }
-    /* state={
-        totalCost:0.0,
-        itemList:[]
-    }; */
 
     async componentDidMount(){
         const foodItemsApi = await this.props.event_items();

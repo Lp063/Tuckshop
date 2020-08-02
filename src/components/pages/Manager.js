@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import { Row, Col, Form, Button, Container} from 'react-bootstrap';
+import { Row, Col, Container} from 'react-bootstrap';
 //import PropTypes from 'prop-types';
 
 class Manager extends Component{
