@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 27, 2020 at 09:42 PM
+-- Generation Time: Aug 02, 2020 at 12:14 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -64,11 +64,34 @@ CREATE TABLE `tbl_items` (
 --
 
 INSERT INTO `tbl_items` (`id`, `event_id`, `name`, `price`, `created_on`, `serving`, `currency`) VALUES
-(1, 1, 'Chocolate Doughnuts', '30', '2020-06-27 07:14:25', '2/plate', 'USD'),
-(2, 1, 'Cupcakes', '50', '2020-06-27 07:14:25', '2/plate', 'USD'),
-(3, 1, 'Casserolls', '30', '2020-06-27 19:13:25', '2/plate', 'USD'),
-(4, 1, 'Quesadilla', '50', '2020-06-27 19:13:25', '2/plate', 'USD'),
-(5, 1, 'Croquettes', '30', '2020-06-27 19:14:12', '3/plate', 'USD');
+(1, 1, 'Chocolate Doughnuts', '30', '2020-06-27 07:14:25', '2/plate', 'inr'),
+(2, 1, 'Cupcakes', '50', '2020-06-27 07:14:25', '2/plate', 'inr'),
+(3, 1, 'Casserolls', '30', '2020-06-27 19:13:25', '2/plate', 'inr'),
+(4, 1, 'Quesadilla', '50', '2020-06-27 19:13:25', '2/plate', 'inr'),
+(5, 1, 'Croquettes', '30', '2020-06-27 19:14:12', '3/plate', 'inr');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_sales`
+--
+
+CREATE TABLE `tbl_sales` (
+  `id` int(225) NOT NULL,
+  `item_id` int(225) NOT NULL,
+  `quantity` int(225) NOT NULL,
+  `user_id` int(225) NOT NULL,
+  `event_id` int(225) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_sales`
+--
+
+INSERT INTO `tbl_sales` (`id`, `item_id`, `quantity`, `user_id`, `event_id`, `create_date`) VALUES
+(15, 2, 1, 3, 1, '2020-07-09 14:47:24'),
+(16, 3, 1, 3, 1, '2020-07-09 14:47:24');
 
 -- --------------------------------------------------------
 
@@ -135,6 +158,15 @@ ALTER TABLE `tbl_items`
   ADD KEY `event_fk` (`event_id`);
 
 --
+-- Indexes for table `tbl_sales`
+--
+ALTER TABLE `tbl_sales`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_item_id` (`item_id`),
+  ADD KEY `fk_event_id` (`event_id`),
+  ADD KEY `fk_user_id` (`user_id`);
+
+--
 -- Indexes for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
@@ -162,6 +194,11 @@ ALTER TABLE `tbl_event`
 ALTER TABLE `tbl_items`
   MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
+-- AUTO_INCREMENT for table `tbl_sales`
+--
+ALTER TABLE `tbl_sales`
+  MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
@@ -186,6 +223,14 @@ ALTER TABLE `tbl_event`
 --
 ALTER TABLE `tbl_items`
   ADD CONSTRAINT `event_fk` FOREIGN KEY (`event_id`) REFERENCES `tbl_event` (`id`);
+
+--
+-- Constraints for table `tbl_sales`
+--
+ALTER TABLE `tbl_sales`
+  ADD CONSTRAINT `fk_event_id` FOREIGN KEY (`event_id`) REFERENCES `tbl_event` (`id`),
+  ADD CONSTRAINT `fk_item_id` FOREIGN KEY (`item_id`) REFERENCES `tbl_items` (`id`),
+  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `tbl_users` (`id`);
 
 --
 -- Constraints for table `tbl_users`

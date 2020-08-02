@@ -18,9 +18,9 @@ Axios.defaults.baseURL = 'http://localhost:4000/';
 class App extends Component {
   
   state={
-    user_isLoggedIn:false,
+    user_isLoggedIn:true,
     user_senior:0,
-    manager_id:0,
+    manager_id:2,
     waiter_id:0,
     event_id:0,
     event_items:[],
@@ -32,7 +32,9 @@ class App extends Component {
       username:""
     }
   };
-
+  componentDidMount(){
+    history.push("/manager");
+  }
   event_items = async ()=> {
     var z = await Axios.get("foodItems",{
       eventId:this.state.event_id
@@ -115,9 +117,9 @@ class App extends Component {
             <Route exact path="/" render={(props)=>(
               !this.state.user_isLoggedIn?<AppLogin  pageParentContainerStyle={pageParentContainer} loginFormSubmit={this.loginFormSubmit} />:"" )} />
             <Route exact path="/itemListing" render={props=>(
-              (this.state.user_isLoggedIn && this.state.waiter_id != 0) ?<ItemsListing pageParentContainerStyle={pageParentContainer}  itemsCheckedOut={this.itemsCheckedOut} event_items={this.event_items} />:""  )}/>
+              (this.state.user_isLoggedIn && this.state.waiter_id !== 0) ?<ItemsListing pageParentContainerStyle={pageParentContainer}  itemsCheckedOut={this.itemsCheckedOut} event_items={this.event_items} />:""  )}/>
             <Route exact path="/manager" render={props=>(
-                (this.state.user_isLoggedIn && this.state.manager_id !=0) ? <Manager />:"d" )}/>
+                (this.state.user_isLoggedIn && this.state.manager_id !==0) ? <Manager />:"d" )}/>
             <Route >{history.push("/")}</Route>
           </Switch>
       </Router>
