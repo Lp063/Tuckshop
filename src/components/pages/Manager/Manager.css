@@ -1,0 +1,90 @@
+.vertical-left-side-bar{
+    width:4%;
+    background-color: #f7f7f7;
+    position: fixed;
+    left: 0px;
+    padding: 0px 0px 0px 6px;
+}
+
+.vertical-left-side-bar:hover{
+    width:13%;
+    transition-timing-function: ease-out;
+    transition: right .5s ease;
+}
+
+.vertical-left-side-bar:hover .sidebar-item-text{
+    display: block;
+}
+
+.unordered-list-sidebar{
+    margin:0;
+    padding:0;
+}
+
+.sidebar-list-item{
+    align-items: center;
+    list-style-type: none;
+    display:flex;
+    height:51px;
+    font-size: 24px;
+}
+
+.sidebar-item-text{
+    margin:0px 0px 0px 20px;
+    font-size: 18px;
+    display:none;
+}
+
+.level-2{
+    z-index: 1;
+}
+
+.pageRow{
+    padding:0% 0% 0% 4%;
+}
+
+.dashboard-metric-card-holder{
+    display: flex;
+    height: 112%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.menu-list{
+    margin: 0px;
+    background-color:#f4f2f2;
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    list-style: none;
+    font-size: 140%;
+    font-weight: 200;
+}
+
+.menu-list .active{
+    background-color:white;
+}
+
+.left-side-nav{
+
+}
+
+.dashboard-metric-card{
+    width: 19%;
+    display: grid;
+    padding: 0% 1%;
+    border-radius: 5px;
+    background-color: #ff7f50;
+    box-shadow: 0px 0px 9px #ff7f50;
+    color: white;
+}
+
+.dashboard-metric-card .metric-title{
+    text-align: left;
+    font-size: 140%;
+}
+
+.dashboard-metric-card .metric-count{
+    text-align: right;
+    font-size: 300%;
+}
