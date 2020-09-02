@@ -16,7 +16,7 @@ In /client you can launch the Front end:
 
 In /api you can launch  the backend:<br />
 
-### `npm nodemon index.js`
+### `npx nodemon index.js`
 
 The app UI runs in development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
