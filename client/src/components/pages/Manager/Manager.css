@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+label{
+    margin:0px;
+}
+
 .vertical-left-side-bar{
     width:4%;
     background-color: #f7f7f7;
@@ -100,36 +104,46 @@
     padding: 0%;
 }
 
+.dashboard-metric-card.orange-card{
+    background-color: #F8A449;
+    box-shadow: 0px 6px 9px #F8A449;
+}
+
 .dashboard-metric-card.red-card{
-    background-color: #ff7f50;
-    box-shadow: 0px 0px 9px #ff7f50;
+    background-color: #FB7454;
+    box-shadow: 0px 6px 9px #FB7454;
 }
 
-.dashboard-metric-card.blue-card{
-    background-color: #3498db;
-    box-shadow: 0px 0px 9px #3498db;
-}
-
-.dashboard-metric-card.green-card{
-    background-color: #1abc9c;
-    box-shadow: 0px 0px 9px #1abc9c;
+.dashboard-metric-card.yellow-card{
+    background-color: #f4b73f;
+    box-shadow: 0px 6px 9px #f4b73f;
 }
 
 .dashboard-metric-card{
     width: 100%;
-    height:100%;
     display: grid;
-    padding: 0% 1%;
-    border-radius: 5px;
+    padding: 4% 8% 6% 8%;
+    border-radius: 8px;
     color: white;
+}
+
+.dashboard-metric-card .icon-count{
+    display: inline;
+    font-size: 260%;
+}
+
+.dashboard-metric-card .icon-count svg{
+    height: 50%;
+    position: relative;
+    top: -4px;
+    left: -4px;
+}
+
+.dashboard-metric-card .icon-count .metric-count{
+    font-size: 100%;
 }
 
 .dashboard-metric-card .metric-title{
     text-align: left;
     font-size: 140%;
-}
-
-.dashboard-metric-card .metric-count{
-    text-align: right;
-    font-size: 300%;
 }

@@ -6,8 +6,8 @@ import history from "../../../utils/history";
 
 import Dashboard from './Dashboard/Dashboard';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTachometerAlt, faList, faUserClock, faCookieBite, faCog, faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTachometerAlt, faList, faUserClock, faCookieBite, faCog, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
 import './Manager.css'
 //import PropTypes from 'prop-types';
