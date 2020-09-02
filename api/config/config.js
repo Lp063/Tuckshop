@@ -1,9 +1,10 @@
 const dotenv    =   require('dotenv');
+const path = require('path');
 var mysql       =   require('mysql');
 const util      =   require('util');
 const fs = require('fs');
 //var postmark    =   require("postmark");
-dotenv.config({path:"../.env"});
+dotenv.config({path:path.join(__dirname,"../.env")});
 
 const baseurl = "http://localhost:4000";
 exports.jwtPrivateKey = "kamakazi";
