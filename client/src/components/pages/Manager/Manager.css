@@ -55,7 +55,7 @@ label{
 
 .dashboard-metric-card-holder{
     display: flex;
-    height: 112%;
+    /* height: 112%; */
     padding-top: 2%;
     padding-bottom: 2%;
 }
@@ -141,6 +141,9 @@ label{
 
 .dashboard-metric-card .icon-count .metric-count{
     font-size: 100%;
+    /* margin-left: 5%;
+    position: relative;
+    top: -6px; */
 }
 
 .dashboard-metric-card .metric-title{
