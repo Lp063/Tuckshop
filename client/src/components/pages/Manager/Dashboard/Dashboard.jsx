@@ -13,7 +13,7 @@ function Dashboard(){
         <Col lg={12} md={12} sm={12} xs={12} className="dashboard-metric-card-holder">
             <Col lg={4} md={4} sm={12} xs={12} >
                 <div className="dashboard-metric-card yellow-card">
-                    <div class="icon-count">
+                    <div className="icon-count">
                         <FontAwesomeIcon className="count" icon={faTicketAlt} />
                         <label className="metric-count" >3</label>
                     </div>
@@ -22,7 +22,7 @@ function Dashboard(){
             </Col>
             <Col lg={4} md={4} sm={12} xs={12} >
                 <div className="dashboard-metric-card red-card">
-                    <div class="icon-count">
+                    <div className="icon-count">
                         <FontAwesomeIcon className="count" icon={faRupeeSign} />
                         <label className="metric-count" >25K</label>
                     </div>
@@ -31,7 +31,7 @@ function Dashboard(){
             </Col>
             <Col lg={4} md={4} sm={12} xs={12} >
                 <div className="dashboard-metric-card orange-card">
-                    <div class="icon-count">
+                    <div className="icon-count">
                         <FontAwesomeIcon className="count" icon={faShoppingBag} />
                         <label className="metric-count" >40</label>
                     </div>
