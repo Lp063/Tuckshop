@@ -41,7 +41,7 @@ class Manager extends Component{
                 <li className=""><FontAwesomeIcon icon={faCog} /><label>Settings</label></li>
               </ul>
             </Col>
-            <Col lg={10} md={10}>{console.log(history.location.pathname)}
+            <Col lg={10} md={10}>
               <Router history={history}>
                 <Switch>
                   <Route exact path="/manager" render={(props)=>(<Dashboard />)} />
