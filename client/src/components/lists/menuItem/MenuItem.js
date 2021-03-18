@@ -18,7 +18,7 @@ class MenuItem extends Component{
                     </div>
                     <div className="menu-item-count-buttons">
                         <label className="menu-item-quantity">{purchaseQuantity}</label>
-                        <div class="menu-item-buttons-p-m">
+                        <div className="menu-item-buttons-p-m">
                             <Button className="menu-item-button mi-button-p" onClick={()=>this.props.menuItemDecremented(this,id)} variant="danger">
                                 <FontAwesomeIcon className="mi-button-fa" icon={faMinus} />
                             </Button>
