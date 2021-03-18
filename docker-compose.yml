@@ -1,0 +1,41 @@
+version: '3.1'
+services:  
+  db:
+    image: mysql
+    restart: always
+    environment:
+      DB_MYSQL_HOST: 127.0.0.1
+      DB_MYSQL_USER: tuckshop
+      MYSQL_ROOT_PASSWORD: tuckshop
+      MYSQL_DATABASE: tuckshop
+    volumes:
+       - tuckshop-mysql-data:/var/lib/mysql
+    ports:
+      - "3308:3306"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    environment:
+      PMA_HOST: 127.0.0.1
+      PMA_USER: tuckshop
+      PMA_PASSWORD: tuckshop
+    ports:
+      - "8080:80"
+  api:
+    restart: always
+    depends_on: 
+      - db
+    build:
+      context: ./api
+      dockerfile: dockerfile
+    environment:
+      TEST: ONEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+  client:
+    restart: always
+    depends_on: 
+      - api
+    build:
+      context: ./client
+      dockerfile: dockerfile
+volumes:
+   tuckshop-mysql-data:
