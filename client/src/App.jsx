@@ -66,7 +66,7 @@ class App extends Component {
   loginFormSubmit = (loginFormObject) => {
     /* this.setState({user_isLoggedIn:true});
     history.push("/itemListing"); */
-    Axios.post('authentication/login',loginFormObject).then((response)=>{
+    Axios.post('api/login',loginFormObject).then((response)=>{
       
       var userData  = response.data.data;
       switch (userData.tbl_user_type_id) {
