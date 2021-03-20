@@ -6,20 +6,20 @@ services:
       dockerfile: dockerfile
     restart: always
     ports:
-      - "3308:3306"
+      - "3306:3306"
     networks:
       - tuckshop_network
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     restart: always
+    depends_on: 
+      - db
     environment:
       PMA_HOST: db
       PMA_USER: root
       PMA_PASSWORD: root
     ports:
       - "8080:80"
-    links:
-      - db
   api:
     restart: on-failure
     depends_on: 
@@ -27,14 +27,14 @@ services:
     build:
       context: ./api
       dockerfile: dockerfile
-    links:
-      - db
+    environment:
+      WAIT_HOSTS: db:3306
     networks:
       - tuckshop_network
   client:
     restart: always
     depends_on: 
-      - api
+      - db
     build:
       context: ./client
       dockerfile: dockerfile

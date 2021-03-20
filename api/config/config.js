@@ -18,7 +18,6 @@ const mysqlConnection = mysql.createConnection({
 
 
 
-//const query = util.promisify(mysqlConnection.query).bind(mysqlConnection);
 mysqlConnection.connect((err)=>{
     if (err) {
         console.log(err);
