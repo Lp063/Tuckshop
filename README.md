@@ -6,7 +6,7 @@ Clone Project
 Install client and api depencies in each directory 
 run `npm install`
 
-Run mysql, `import tuckshop.sql` &  execute available scripts below
+Run mysql on host system, import `tuckshop.sql` &  execute available scripts below
 
 ## Available Scripts
 
@@ -26,6 +26,7 @@ You will also see any lint errors in the console.
 
 ## Docker Compose ( work in progress )
 
+### `docker-compose build`
 ### `docker-compose up`
 
 ## Resources
