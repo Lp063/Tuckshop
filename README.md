@@ -3,7 +3,7 @@
 
 Clone Project
 
-run `npm install` in /client and /api directories
+Run `npm install` in /client and /api directories
 
 Run mysql on host system, import `tuckshop.sql` &  execute available scripts below
 
