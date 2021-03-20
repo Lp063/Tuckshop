@@ -1,6 +1,10 @@
 FROM node:12.18.4
 WORKDIR /usr/src/app/api
 COPY package*.json ./
+ENV DB_MYSQL_HOST db
+ENV DB_MYSQL_USER root
+ENV DB_MYSQL_PASSWORD tuckshop
+ENV DB_MYSQL_DATABASE tuckshop
 RUN npm install
 COPY . .
 EXPOSE 4000
