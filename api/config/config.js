@@ -9,7 +9,7 @@ dotenv.config({path:path.join(__dirname,"../.env")});
 const baseurl = "http://localhost:4000";
 exports.jwtPrivateKey = "kamakazi";
 
-const mysqlConnection = mysql.createConnection({
+const mysqlConnection = mysql.createPool({
     host     : process.env.DB_MYSQL_HOST,
     user     : process.env.DB_MYSQL_USER,
     password : process.env.DB_MYSQL_PASSWORD,
@@ -18,13 +18,13 @@ const mysqlConnection = mysql.createConnection({
 
 
 
-mysqlConnection.connect((err)=>{
+/* mysqlConnection.connect((err)=>{
     if (err) {
         console.log(err);
     }else{
         console.log("mysql connected...");
     }
-});
+}); */
 
 //module.exports.emailClient = new postmark.Client(process.env.COMM_EMAIL_POSTMARK_API_TOKEN);
 
