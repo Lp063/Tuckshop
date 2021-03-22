@@ -3,7 +3,7 @@ var config = require('../config/config');
 
 module.exports.authentication=(input,callback)=>{
     var query='SELECT * FROM `tbl_users` WHERE `email` ='+config.mysqlConnection.escape(input.email)+' and `password` ='+config.mysqlConnection.escape(input.password)+' ';
-    var query = config.mysqlConnection.query(query,function(error, results, fields){
+    var query = config.mysqlConnection.query(query,function(error, results, fields){console.log(error, results);
         callback(null,results);
     });
 }
