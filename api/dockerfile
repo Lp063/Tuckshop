@@ -2,16 +2,10 @@ FROM node:12.18.4
 WORKDIR /usr/src/app/api
 COPY package*.json ./
 ENV DB_MYSQL_HOST db
-ENV DB_MYSQL_USER root
+ENV DB_MYSQL_USER tuckshop
 ENV DB_MYSQL_PASSWORD tuckshop
 ENV DB_MYSQL_DATABASE tuckshop
 RUN npm install
 COPY . .
 EXPOSE 4000
 CMD ["npx","nodemon","index.js"]
-## THE LIFE SAVER
-ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.2.1/wait /wait
-RUN chmod +x /wait
-
-## Launch the wait tool and then your application
-CMD /wait

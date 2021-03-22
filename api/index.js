@@ -33,10 +33,10 @@ app.post('/api/login',(req,res)=>{
             email:req.body.email,
             password:req.body.password
         };
-        response = users.authentication(data,function(err,data){ 
+        response = users.authentication(data,function(err,uaseAuthData){ 
             res.setHeader('Content-Type', 'application/json');
-            const thisUser = data[0];
-            if (data.length) {
+            const thisUser = uaseAuthData[0];
+            if (uaseAuthData.length) {
                 jwt.sign({userData:thisUser},config.jwtPrivateKey,{expiresIn:60*60},(err,token)=>{
                     /* console.log(jwt.decode(token).userData)
                     {
