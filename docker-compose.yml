@@ -4,7 +4,6 @@ services:
     build:
       context: ./db
       dockerfile: dockerfile
-    # command: mysql -u root -p root -e "SET PASSWORD FOR root = 'root';"
     restart: always
     ports:
       - "3306:3306"
