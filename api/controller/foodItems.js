@@ -1,5 +1,5 @@
 var config      =   require('../config/config');
-var model_foodItems = require('../model/foodItems');
+const foodItems = require('../model/foodItems');
 var express     =   require('express');
 const { json } = require('body-parser');
 var router      =   express.Router()
@@ -22,7 +22,8 @@ router.get('/', async function (req, res) {
   };
 
   try {
-    const responseData = await model_foodItems.getFoodItems(req.body);
+    const foodItemsObj = new foodItems();
+    const responseData = await foodItemsObj.get(req.body);
     if (responseData.length) {
       var items = responseData.map(function(singleItem){
         var temp={
