@@ -1,0 +1,4 @@
+FROM mongo:latest
+ENV MONGO_INITDB_ROOT_USERNAME tuckshop_mongo_user
+ENV MONGO_INITDB_ROOT_PASSWORD tuckshop_mongo_password
+EXPOSE 27017
