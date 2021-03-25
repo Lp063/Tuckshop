@@ -74,11 +74,3 @@ function verifyToken(req, res, next){
 app.listen(4000,()=>{
     console.log("listening on port 4000");
 });
-
-
-//https://docs.docker.com/network/network-tutorial-standalone/
-
-//https://resources.fabric.inc/answers/ecommerce-microservices-architecture
-//https://github.com/venkataravuri/e-commerce-microservices-sample
-//https://dearsikandarkhan.medium.com/microservices-architecture-for-e-commerce-f8b49270e72f
-//https://www.skava.com/ecommerce-microservices-for-innovation/#business-to-business-microservices

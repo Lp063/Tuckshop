@@ -6,6 +6,10 @@ class foodItems{
         this.eventId = eventId;
     }
 
+    add(){
+        
+    }
+
     get(input){
         return new Promise((resolve,reject)=>{
             config.mysqlConnection.getConnection( function(err, connection) {
@@ -26,9 +30,3 @@ class foodItems{
 }
 
 module.exports = foodItems;
-
-//https://darifnemma.medium.com/how-to-interact-with-mysql-database-using-async-await-promises-in-node-js-9e6c81b683da
-//https://usefulangle.com/post/77/nodejs-write-rest-api-class-in-module
-
-//https://javascript.info/import-export
-//https://ccoenraets.github.io/es6-tutorial/classes/
