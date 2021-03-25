@@ -1,32 +1,17 @@
 
+# Tuckshop
+
 ## Installation
 
-Clone Project
+[Get Docker](https://docs.docker.com/get-docker/)
 
-Run `npm install` in /client and /api directories
+Once installed Run the following command:
 
-Run mysql on host system, import `tuckshop.sql` &  execute available scripts below
-
-## Available Scripts
-
-In /client you can launch the Front end:
-
-### `npm start`
-
-In /api you can launch  the backend:<br />
-
-### `npx nodemon index.js`
+### `docker-compose up --build`
 
 The app UI runs in development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-## Docker Compose ( work in progress )
-
-### `docker-compose build`
-### `docker-compose up`
 
 ## Resources
 
