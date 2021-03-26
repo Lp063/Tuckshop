@@ -36,7 +36,7 @@ class foodItems{
                 if(err) { 
                     return reject(err); 
                 }
-                connection.query('SELECT * FROM `tbl_items` where event_id = 1 ',function(error, results, fields){
+                connection.query('SELECT * FROM `tbl_items`',function(error, results, fields){
                     connection.release();
                     if(error) { 
                         return reject(error);
@@ -55,6 +55,24 @@ class foodItems{
                     return reject(err); 
                 }
                 connection.query('SELECT * FROM `tbl_items` where id = ?',[input.id],function(error, results, fields){
+                    connection.release();
+                    if(error) { 
+                        return reject(error);
+                    }else{
+                        return resolve(results);
+                    }
+                });
+            });
+        });
+    }
+
+    deleteOne(input){
+        return new Promise((resolve,reject)=>{
+            config.mysqlConnection.getConnection( function(err, connection) {
+                if(err) { 
+                    return reject(err); 
+                }
+                connection.query('DELETE FROM `tbl_items` where id = ?',[input.id],function(error, results, fields){
                     connection.release();
                     if(error) { 
                         return reject(error);

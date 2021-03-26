@@ -158,5 +158,27 @@ router.get('/:id', async function (req, res) {
 /*
   delete food item by ID
 */
+router.delete('/:id', async function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  var response={
+    success:0,
+    data:[],
+    message:""
+  };
+  
+  try {
+    const foodItemsObj = new foodItems();
+    const insertState = await foodItemsObj.deleteOne(req.params);
+
+    if (insertState) {
+      response.success=1;
+      response.data = insertState;
+    }
+    res.end(JSON.stringify(response));
+  } catch (error) {
+    response.message = error;
+    res.end(JSON.stringify(response));
+  }
+});
 
 module.exports = router
