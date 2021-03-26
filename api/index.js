@@ -2,12 +2,11 @@ const express   =   require('express');
 const jwt       =   require('jsonwebtoken');
 var cors        =   require('cors');
 const app       =   express();
-var bodyParser  =   require('body-parser');
 var config      =   require('./config/config');
 
 app.use(cors());
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.use(express.json()); // support json encoded bodies
+app.use(express.urlencoded({ extended: true })); // support encoded bodies
 app.use("/email/images",express.static(__dirname + '\\assets\\images\\comm_mail'));
 
 //var email       =   require('./model/comm_email');
