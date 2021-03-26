@@ -12,6 +12,16 @@ Once installed Run the following command:
 The app UI runs in development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+## servers
+
+### API
+`http://localhost:4000`
+
+### phpmyadmin
+`http://localhost:8080`
+
+### Frontend
+`http://localhost:3000`
 
 ## Resources
 

@@ -154,6 +154,7 @@ router.get('/:id', async function (req, res) {
   update food item by ID
 */
 router.put('/:id', async function (req, res) {
+  
   res.setHeader('Content-Type', 'application/json');
   var response={
     success:0,
