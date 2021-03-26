@@ -64,9 +64,14 @@ function verifyToken(req, res, next){
     if(typeof bearerHeader == "undefined"){
         res.sendStatus(403);
     }else{
-        const bearer = bearerHeader.split(' ');
-        const bearerToken = bearer[1];
-        req.token = bearerToken;
+        const bearer        = bearerHeader.split(' ');
+        const bearerToken   = bearer[1];
+        const jwtVerify     = jwt.verify(bearerToken, config.jwtPrivateKey);
+        if(jwtVerify){
+            req.token = jwtVerify.userData;
+        }else{
+            req.token = null;
+        }
         next();
     }
 }

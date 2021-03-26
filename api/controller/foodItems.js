@@ -1,4 +1,5 @@
 var config      =   require('../config/config');
+const jwt       =   require('jsonwebtoken');
 const foodItems = require('../model/foodItems');
 var express     =   require('express');
 const { json } = require('body-parser');
@@ -8,6 +9,28 @@ var router      =   express.Router()
 /*
   Add food item
 */
+router.post('/', async function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  var response={
+    success:0,
+    data:[],
+    message:""
+  };
+  
+  try {
+    const foodItemsObj = new foodItems();
+    const insertState = await foodItemsObj.addOne(req.body);
+
+    if (insertState) {
+      response.success=1;
+      response.data = insertState;
+    }
+    res.end(JSON.stringify(response));
+  } catch (error) {
+    response.message = error;
+    res.end(JSON.stringify(response));
+  }
+});
 
 // GET /fooditems
 /*
@@ -101,6 +124,15 @@ router.get('/', async function (req, res) {
 /*
   Get food item by ID
 */
+router.get('/:id', async function (req, res) {
+  var response={
+    success:0,
+    data:[],
+    message:""
+  };
+  
+});
+
 
 
 // PUT /fooditems/{:id}

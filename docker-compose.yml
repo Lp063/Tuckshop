@@ -23,19 +23,19 @@ services:
   #   restart: always
   #   ports:
   #     - 27017:27017
-  # phpmyadmin:
-  #   image: phpmyadmin/phpmyadmin:latest
-  #   restart: always
-  #   depends_on: 
-  #     - db
-  #   environment:
-  #     PMA_HOST: db
-  #     PMA_USER: root
-  #     PMA_PASSWORD: root
-  #   networks:
-  #     - tuckshop_network
-  #   ports:
-  #     - "8080:80"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    depends_on: 
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: root
+    networks:
+      - tuckshop_network
+    ports:
+      - "8080:80"
   api:
     restart: on-failure
     container_name: tuckshop_api
