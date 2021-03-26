@@ -5,6 +5,8 @@ services:
     build:
       context: ./db
       dockerfile: dockerfile
+    # volumes:
+    # - "./db/volume:/var/lib/mysql"
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -55,17 +57,17 @@ services:
       - "4000:4000"
     networks:
       - tuckshop_network
-  # client:
-  #   restart: always
-  #   depends_on: 
-  #     - db
-  #   build:
-  #     context: ./client
-  #     dockerfile: dockerfile
-  #   ports:
-  #     - "3000:3000"
-  #   networks:
-  #     - tuckshop_network
+  client:
+    restart: always
+    depends_on: 
+      - db
+    build:
+      context: ./client
+      dockerfile: dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - tuckshop_network
 networks:
     tuckshop_network:
         driver: bridge
