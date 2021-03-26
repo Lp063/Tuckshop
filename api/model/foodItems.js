@@ -2,8 +2,8 @@ var config      =   require('../config/config');
 
 class foodItems{
 
-    constructor(eventId){
-        this.eventId = eventId;
+    constructor(itemId){
+        this.itemId = itemId;
     }
 
     addOne(insertItem){
@@ -66,13 +66,15 @@ class foodItems{
         });
     }
 
-    deleteOne(input){
+    updateOne(input){
         return new Promise((resolve,reject)=>{
             config.mysqlConnection.getConnection( function(err, connection) {
                 if(err) { 
                     return reject(err); 
                 }
-                connection.query('DELETE FROM `tbl_items` where id = ?',[input.id],function(error, results, fields){
+                connection.query('UPDATE `tbl_items` name = ?, price = ?, serving = ? where id = ?',
+                    [input.name, input.price, input.serving, this.itemId],
+                    function(error, results, fields){
                     connection.release();
                     if(error) { 
                         return reject(error);

@@ -153,6 +153,28 @@ router.get('/:id', async function (req, res) {
 /*
   update food item by ID
 */
+router.put('/:id', async function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  var response={
+    success:0,
+    data:[],
+    message:""
+  };
+  
+  try {
+    const foodItemsObj = new foodItems(req.params);
+    const updateStatus = await foodItemsObj.updateOne(req.body);
+
+    if (updateStatus) {
+      response.success=1;
+      response.data = updateStatus;
+    }
+    res.end(JSON.stringify(response));
+  } catch (error) {
+    response.message = error;
+    res.end(JSON.stringify(response));
+  }
+});
 
 // DELETE /fooditems/{:id}
 /*
