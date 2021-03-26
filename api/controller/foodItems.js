@@ -45,7 +45,7 @@ router.get('/', async function (req, res) {
   };
 
   try {
-    const foodItemsObj = new foodItems();
+    const foodItemsObj = new foodItems(req.body.eventId);
     const responseData = await foodItemsObj.get(req.body);
     if (responseData.length) {
       var items = responseData.map(function(singleItem){
@@ -125,12 +125,26 @@ router.get('/', async function (req, res) {
   Get food item by ID
 */
 router.get('/:id', async function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   var response={
     success:0,
     data:[],
     message:""
   };
   
+  try {
+    const foodItemsObj = new foodItems();
+    const insertState = await foodItemsObj.getOne(req.params);
+
+    if (insertState) {
+      response.success=1;
+      response.data = insertState;
+    }
+    res.end(JSON.stringify(response));
+  } catch (error) {
+    response.message = error;
+    res.end(JSON.stringify(response));
+  }
 });
 
 

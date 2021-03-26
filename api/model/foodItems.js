@@ -47,6 +47,24 @@ class foodItems{
             });
         });
     }
+
+    getOne(input){
+        return new Promise((resolve,reject)=>{
+            config.mysqlConnection.getConnection( function(err, connection) {
+                if(err) { 
+                    return reject(err); 
+                }
+                connection.query('SELECT * FROM `tbl_items` where id = ?',[input.id],function(error, results, fields){
+                    connection.release();
+                    if(error) { 
+                        return reject(error);
+                    }else{
+                        return resolve(results);
+                    }
+                });
+            });
+        });
+    }
 }
 
 module.exports = foodItems;
