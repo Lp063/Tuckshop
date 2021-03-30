@@ -65,12 +65,12 @@ router.get('/', async function (req, res) {
       }
     }
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(response));
+    res.status(200).end(JSON.stringify(response));
   } catch (error) {
     
     response.message=error;
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(response));
+    res.status(404).end(JSON.stringify(response));
   }
   
   
@@ -133,17 +133,19 @@ router.get('/:id', async function (req, res) {
   };
   
   try {
-    const foodItemsObj = new foodItems();
-    const insertState = await foodItemsObj.getOne(req.params);
+    const foodItemsObj = new foodItems(req.params.id);
+    const insertState = await foodItemsObj.getOne();
 
-    if (insertState) {
+    if (insertState.length) {
       response.success=1;
       response.data = insertState;
+      res.status(200).end(JSON.stringify(response));
+    }else{
+      res.status(404).end(JSON.stringify(response));
     }
-    res.end(JSON.stringify(response));
   } catch (error) {
     response.message = error;
-    res.end(JSON.stringify(response));
+    res.status(404).end(JSON.stringify(response));
   }
 });
 
@@ -163,17 +165,19 @@ router.put('/:id', async function (req, res) {
   };
   
   try {
-    const foodItemsObj = new foodItems(req.params);
+    const foodItemsObj = new foodItems(req.params.id);
     const updateStatus = await foodItemsObj.updateOne(req.body);
 
-    if (updateStatus) {
+    if (typeof updateStatus != null) {
       response.success=1;
       response.data = updateStatus;
+      res.status(200).end(JSON.stringify(response));
+    }else{
+      res.status(404).end(JSON.stringify(response));
     }
-    res.end(JSON.stringify(response));
   } catch (error) {
     response.message = error;
-    res.end(JSON.stringify(response));
+    res.status(404).end(JSON.stringify(response));
   }
 });
 
@@ -190,17 +194,19 @@ router.delete('/:id', async function (req, res) {
   };
   
   try {
-    const foodItemsObj = new foodItems();
-    const insertState = await foodItemsObj.deleteOne(req.params);
+    const foodItemsObj = new foodItems(req.params.id);
+    const deleteState = await foodItemsObj.deleteOne();
 
-    if (insertState) {
+    if (typeof deleteState != null) {
       response.success=1;
-      response.data = insertState;
+      response.data = deleteState;
+      res.status(200).end(JSON.stringify(response));
+    }else{
+      res.status(404).end(JSON.stringify(response));
     }
-    res.end(JSON.stringify(response));
   } catch (error) {
     response.message = error;
-    res.end(JSON.stringify(response));
+    res.status(404).end(JSON.stringify(response));
   }
 });
 

@@ -1,7 +1,7 @@
 var config      =   require('../config/config');
 
 class foodItems{
-
+    itemId=0;
     constructor(itemId){
         this.itemId = itemId;
     }
@@ -32,11 +32,11 @@ class foodItems{
 
     get(input){
         return new Promise((resolve,reject)=>{
-            config.mysqlConnection.getConnection( function(err, connection) {
+            config.mysqlConnection.getConnection((err, connection) => {
                 if(err) { 
                     return reject(err); 
                 }
-                connection.query('SELECT * FROM `tbl_items`',function(error, results, fields){
+                connection.query('SELECT * FROM `tbl_items`',(error, results, fields) => {
                     connection.release();
                     if(error) { 
                         return reject(error);
@@ -50,11 +50,11 @@ class foodItems{
 
     getOne(input){
         return new Promise((resolve,reject)=>{
-            config.mysqlConnection.getConnection( function(err, connection) {
+            config.mysqlConnection.getConnection((err, connection) => {
                 if(err) { 
                     return reject(err); 
                 }
-                connection.query('SELECT * FROM `tbl_items` where id = ?',[input.id],function(error, results, fields){
+                connection.query('SELECT * FROM `tbl_items` where id = ?',[this.itemId],(error, results, fields) => {
                     connection.release();
                     if(error) { 
                         return reject(error);
@@ -67,14 +67,33 @@ class foodItems{
     }
 
     updateOne(input){
+        
         return new Promise((resolve,reject)=>{
-            config.mysqlConnection.getConnection( function(err, connection) {
+            config.mysqlConnection.getConnection( (err, connection) => {
                 if(err) { 
                     return reject(err); 
                 }
-                connection.query('UPDATE `tbl_items` name = ?, price = ?, serving = ? where id = ?',
+                connection.query('UPDATE `tbl_items` SET name = ?, price = ?, serving = ? where id = ?',
                     [input.name, input.price, input.serving, this.itemId],
-                    function(error, results, fields){
+                    (error, results, fields)=>{
+                    connection.release();
+                    if(error) { 
+                        return reject(error);
+                    }else{
+                        return resolve(results);
+                    }
+                });
+            });
+        });
+    }
+
+    deleteOne(input){
+        return new Promise((resolve,reject)=>{
+            config.mysqlConnection.getConnection( (err, connection) => {
+                if(err) { 
+                    return reject(err); 
+                }
+                connection.query('DELETE FROM `tbl_items` where id = ?',[this.itemId],(error, results, fields)=>{
                     connection.release();
                     if(error) { 
                         return reject(error);
