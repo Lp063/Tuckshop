@@ -1,9 +1,13 @@
 var config      =   require('../config/config');
 
 class foodItems{
-    itemId=0;
-    constructor(itemId){
-        this.itemId = itemId;
+    
+    constructor(itemId,name,price,serving,image){
+        this.itemId     =   itemId;
+        this.name       =   name;
+        this.price      =   price;
+        this.serving    =   serving;
+        this.image      =   image;
     }
 
     addOne(insertItem){
@@ -18,7 +22,7 @@ class foodItems{
                     serving:insertItem.serving,
                     currency:"inr"
                 };
-                connection.query('INSERT into `tbl_items` SET ?',item,function(error, results, fields){
+                connection.query('INSERT into `tbl_items` SET ?',item,(error, results, fields) => {
                     connection.release();
                     if(error) { 
                         return reject(error);
