@@ -1,0 +1,6 @@
+# volumes
+*/volume/*
+
+# dotenv environment variables file
+.env
+.env.test
