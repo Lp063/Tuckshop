@@ -11,6 +11,8 @@ Once installed Run the following command:
 
 ### `docker-compose up --build`
 
+`import db/tuckshop.sql into Tuckshop database in phpmyadmin`
+
 ## servers
 
 ### API
