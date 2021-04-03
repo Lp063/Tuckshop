@@ -7,6 +7,8 @@
 
 Once installed Run the following command:
 
+### `cd Tuckshop`
+
 ### `docker-compose up --build`
 
 ## servers
