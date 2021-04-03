@@ -1,5 +1,7 @@
 # volumes
-db/volume
+db/**/volume
+api/**/volume
+db-mongo/**/volume
 
 # dotenv environment variables file
 .env
