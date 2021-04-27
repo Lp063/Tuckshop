@@ -1,15 +1,27 @@
 var config      =   require('../config/config');
 const jwt       =   require('jsonwebtoken');
-const foodItems = require('../model/foodItems');
+const foodItems =   require('../model/foodItems');
 var express     =   require('express');
-const { json } = require('body-parser');
-var router      =   express.Router()
+const multer    =   require('multer');
+var router      =   express.Router();
+const path      =   require('path');
+
+var storage = multer.diskStorage({ 
+  destination: __dirname+'/../assets/images/public/food/',
+  filename:function(req, file, cb){
+    cb(null,file.fieldname+"_"+Date.now()+path.extname(file.originalname))
+  }
+});
+
+const upload = multer({
+  storage:storage
+}).single("images",2);
 
 // POST /fooditems
 /*
   Add food item
 */
-router.post('/', async function (req, res) {
+router.post('/', upload, async function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   var response={
     success:0,
@@ -18,8 +30,16 @@ router.post('/', async function (req, res) {
   };
   
   try {
+    //console.log(req.body);//console.log(req.file);
+    upload(req, res,(err)=>{
+      if (err) {
+       console.log(err);
+      }else{
+        //console.log(req.file);
+      }
+    });
     const foodItemsObj = new foodItems();
-    const insertState = await foodItemsObj.addOne(req.body);
+    const insertState = await foodItemsObj.addOne(req.body,req.file);
 
     if (insertState) {
       response.success=1;
