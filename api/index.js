@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json()); // support json encoded bodies
 app.use(express.urlencoded({ extended: true })); // support encoded bodies
 app.use("/email/images",express.static(__dirname + '\\assets\\images\\comm_mail'));
-app.use("/cl1/images",express.static(__dirname + '\\assets\\images\\customerL1_images'));
+app.use("/images/food",express.static(__dirname + '\\assets\\images\\public\\food'));
 
 //var email       =   require('./model/comm_email');
 var users       =   require('./model/users');
