@@ -2,7 +2,7 @@ var config      =   require('../config/config');
 
 class foodItems{
     
-    constructor(itemId,name,price,serving,image){
+    constructor({itemId,name,price,serving,image}){
         this.itemId     =   itemId;
         this.name       =   name;
         this.price      =   price;
@@ -10,18 +10,20 @@ class foodItems{
         this.image      =   image;
     }
 
-    addOne(insertItem){
+    addOne(){
+        const item ={
+            name:this.name,
+            price:parseInt(this.price),
+            serving:this.serving,
+            currency:"inr",
+            img_src:this.image
+        };
         return new Promise((resolve,reject)=>{
             config.mysqlConnection.getConnection( function(err, connection) {
                 if(err) { 
                     return reject(err); 
                 }
-                const item ={
-                    name:insertItem.name,
-                    price:parseInt(insertItem.price),
-                    serving:insertItem.serving,
-                    currency:"inr"
-                };
+                
                 connection.query('INSERT into `tbl_items` SET ?',item,(error, results, fields) => {
                     connection.release();
                     if(error) { 
@@ -34,7 +36,7 @@ class foodItems{
         });
     }
 
-    get(input){
+    get(){
         return new Promise((resolve,reject)=>{
             config.mysqlConnection.getConnection((err, connection) => {
                 if(err) { 
@@ -52,13 +54,15 @@ class foodItems{
         });
     }
 
-    getOne(input){
+    getOne(){
+        let itemId = this.itemId;
+
         return new Promise((resolve,reject)=>{
             config.mysqlConnection.getConnection((err, connection) => {
                 if(err) { 
                     return reject(err); 
                 }
-                connection.query('SELECT * FROM `tbl_items` where id = ?',[this.itemId],(error, results, fields) => {
+                connection.query('SELECT * FROM `tbl_items` where id = ?',[itemId],(error, results, fields) => {
                     connection.release();
                     if(error) { 
                         return reject(error);
@@ -70,15 +74,15 @@ class foodItems{
         });
     }
 
-    updateOne(input){
-        
+    updateOne(){
+        let {itemId,name,price,serving,image} = this;
         return new Promise((resolve,reject)=>{
             config.mysqlConnection.getConnection( (err, connection) => {
                 if(err) { 
                     return reject(err); 
                 }
                 connection.query('UPDATE `tbl_items` SET name = ?, price = ?, serving = ? where id = ?',
-                    [input.name, input.price, input.serving, this.itemId],
+                    [name, price, serving, itemId],
                     (error, results, fields)=>{
                     connection.release();
                     if(error) { 

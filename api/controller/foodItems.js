@@ -15,7 +15,7 @@ var storage = multer.diskStorage({
 
 const upload = multer({
   storage:storage
-}).single("images",2);
+}).single("image",2);
 
 // POST /fooditems
 /*
@@ -30,16 +30,15 @@ router.post('/', upload, async function (req, res) {
   };
   
   try {
-    //console.log(req.body);//console.log(req.file);
-    upload(req, res,(err)=>{
-      if (err) {
-       console.log(err);
-      }else{
-        //console.log(req.file);
-      }
-    });
-    const foodItemsObj = new foodItems();
-    const insertState = await foodItemsObj.addOne(req.body,req.file);
+    
+    let construct={
+      itemId:null,
+      name:req.body.name,
+      price:req.body.price,
+      serving:req.body.serving,
+      image:req.file.filename
+    };
+    const insertState = await new foodItems(construct).addOne();
 
     if (insertState) {
       response.success=1;
@@ -65,8 +64,7 @@ router.get('/', async function (req, res) {
   };
 
   try {
-    const foodItemsObj = new foodItems(req.body.eventId);
-    const responseData = await foodItemsObj.get(req.body);
+    const responseData = await new foodItems({}).get();
     if (responseData.length) {
       var items = responseData.map(function(singleItem){
         var temp={
@@ -74,7 +72,7 @@ router.get('/', async function (req, res) {
           title:singleItem.name,
           serving:singleItem.serving,
           rate:parseInt(singleItem.price),
-          purchaseQuantity:0,
+          image:singleItem.img_src,
           currency:singleItem.currency
         };
         return temp;
@@ -153,8 +151,7 @@ router.get('/:id', async function (req, res) {
   };
   
   try {
-    const foodItemsObj = new foodItems(req.params.id);
-    const insertState = await foodItemsObj.getOne();
+    const insertState = await new foodItems({itemId:req.params.id}).getOne();
 
     if (insertState.length) {
       response.success=1;
@@ -175,7 +172,7 @@ router.get('/:id', async function (req, res) {
 /*
   update food item by ID
 */
-router.put('/:id', async function (req, res) {
+router.put('/:id', upload, async function (req, res) {
   
   res.setHeader('Content-Type', 'application/json');
   var response={
@@ -183,12 +180,16 @@ router.put('/:id', async function (req, res) {
     data:[],
     message:""
   };
-  
+  let construct={
+    itemId:req.params.id,
+    name:req.body.name,
+    price:req.body.price,
+    serving:req.body.serving
+  };
   try {
-    const foodItemsObj = new foodItems(req.params.id);
-    const updateStatus = await foodItemsObj.updateOne(req.body);
+    const updateStatus = await new foodItems(construct).updateOne();
 
-    if (typeof updateStatus != null) {
+    if (updateStatus.affectedRows >= 1) {
       response.success=1;
       response.data = updateStatus;
       res.status(200).end(JSON.stringify(response));
