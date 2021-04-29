@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Mar 26, 2021 at 10:43 AM
+-- Generation Time: Apr 29, 2021 at 02:08 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.4.16
 
@@ -29,7 +29,6 @@ USE `tuckshop`;
 -- Table structure for table `tbl_event`
 --
 
-DROP TABLE IF EXISTS `tbl_event`;
 CREATE TABLE `tbl_event` (
   `id` int(225) NOT NULL,
   `name` varchar(225) NOT NULL,
@@ -58,7 +57,6 @@ INSERT INTO `tbl_event` (`id`, `name`, `manager_id`, `fooditem_list_id`, `create
 -- Table structure for table `tbl_event_items`
 --
 
-DROP TABLE IF EXISTS `tbl_event_items`;
 CREATE TABLE `tbl_event_items` (
   `id` int(255) NOT NULL,
   `event_id` int(255) NOT NULL,
@@ -87,14 +85,14 @@ INSERT INTO `tbl_event_items` (`id`, `event_id`, `item_id`) VALUES
 -- Table structure for table `tbl_items`
 --
 
-DROP TABLE IF EXISTS `tbl_items`;
 CREATE TABLE `tbl_items` (
   `id` int(225) NOT NULL,
   `name` varchar(225) NOT NULL,
   `price` varchar(225) NOT NULL,
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `serving` varchar(225) NOT NULL,
-  `currency` varchar(225) NOT NULL DEFAULT 'inr'
+  `currency` varchar(225) NOT NULL DEFAULT 'inr',
+  `img_src` varchar(225) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -106,13 +104,15 @@ TRUNCATE TABLE `tbl_items`;
 -- Dumping data for table `tbl_items`
 --
 
-INSERT INTO `tbl_items` (`id`, `name`, `price`, `created_on`, `serving`, `currency`) VALUES
-(1, 'Chocolate Doughnuts', '30', '2020-06-27 07:14:25', '2/plate', 'inr'),
-(2, 'Cupcakes', '50', '2020-06-27 07:14:25', '2/plate', 'inr'),
-(3, 'Casserolls', '30', '2020-06-27 19:13:25', '2/plate', 'inr'),
-(4, 'Quesadilla', '50', '2020-06-27 19:13:25', '2/plate', 'inr'),
-(5, 'Croquettes', '30', '2020-06-27 19:14:12', '3/plate', 'inr'),
-(7, 'Apple Pie', '70', '2021-03-26 09:48:34', '1/plate', 'inr');
+INSERT INTO `tbl_items` (`id`, `name`, `price`, `created_on`, `serving`, `currency`, `img_src`) VALUES
+(1, 'Chocolate Doughnuts', '30', '2020-06-27 07:14:25', '2/plate', 'inr', NULL),
+(2, 'Cupcakes', '50', '2020-06-27 07:14:25', '2/plate', 'inr', NULL),
+(3, 'Casserolls', '30', '2020-06-27 19:13:25', '2/plate', 'inr', NULL),
+(4, 'Quesadilla', '50', '2020-06-27 19:13:25', '2/plate', 'inr', NULL),
+(5, 'Croquettes', '30', '2020-06-27 19:14:12', '3/plate', 'inr', NULL),
+(7, 'Apple Pie', '70', '2021-03-26 09:48:34', '1/plate', 'inr', NULL),
+(8, 'Maska Pav', '50', '2021-04-27 19:00:14', '2/plate', 'inr', NULL),
+(10, 'fat kat', '10', '2021-04-28 18:52:53', '1/plate', 'inr', 'image_1619635973556.jpg');
 
 -- --------------------------------------------------------
 
@@ -120,7 +120,6 @@ INSERT INTO `tbl_items` (`id`, `name`, `price`, `created_on`, `serving`, `curren
 -- Table structure for table `tbl_sales`
 --
 
-DROP TABLE IF EXISTS `tbl_sales`;
 CREATE TABLE `tbl_sales` (
   `id` int(225) NOT NULL,
   `item_id` int(225) NOT NULL,
@@ -149,7 +148,6 @@ INSERT INTO `tbl_sales` (`id`, `item_id`, `quantity`, `user_id`, `event_id`, `cr
 -- Table structure for table `tbl_users`
 --
 
-DROP TABLE IF EXISTS `tbl_users`;
 CREATE TABLE `tbl_users` (
   `id` int(255) NOT NULL,
   `username` varchar(20) NOT NULL,
@@ -181,7 +179,6 @@ INSERT INTO `tbl_users` (`id`, `username`, `password`, `email`, `tbl_user_type_i
 -- Table structure for table `tbl_user_type`
 --
 
-DROP TABLE IF EXISTS `tbl_user_type`;
 CREATE TABLE `tbl_user_type` (
   `id` int(225) NOT NULL,
   `type` varchar(225) NOT NULL
@@ -268,7 +265,7 @@ ALTER TABLE `tbl_event_items`
 -- AUTO_INCREMENT for table `tbl_items`
 --
 ALTER TABLE `tbl_items`
-  MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_sales`
