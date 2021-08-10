@@ -62,7 +62,7 @@ services:
     depends_on: 
       - db
     build:
-      context: ./client
+      context: ./tuckshop_client
       dockerfile: dockerfile
     ports:
       - "3000:3000"
