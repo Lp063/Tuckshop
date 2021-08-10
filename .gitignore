@@ -1,5 +1,6 @@
 #microservices
 tuckshop_client/
+tuckshop_api/
 
 # volumes
 db/**/volume
