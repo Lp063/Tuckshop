@@ -1,6 +1,9 @@
+#microservices
+tuckshop_client/
+
 # volumes
 db/**/volume
-api/**/volume
+tuckshop_client/**/volume
 db-mongo/**/volume
 
 # dotenv environment variables file
