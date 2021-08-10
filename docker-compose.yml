@@ -44,10 +44,10 @@ services:
     depends_on: 
       - db
     build:
-      context: ./api
+      context: ./tuckshop_api
       dockerfile: dockerfile
     volumes:
-      - "./api:/usr/src/app/api"
+      - "./volume/tuckshop_api:/usr/src/app/tuckshop_api"
     environment:
       DB_MYSQL_HOST: ${DB_MYSQL_HOST}
       DB_MYSQL_USER: ${MYSQL_USER}
