@@ -26,48 +26,51 @@ services:
   #   ports:
   #     - 27017:27017
   phpmyadmin:
+    container_name: tuckshop_phpmyadmin
     image: phpmyadmin/phpmyadmin:latest
     restart: always
     depends_on: 
       - db
     environment:
       PMA_HOST: db
+      PMA_PORT: 3306
       PMA_USER: root
       PMA_PASSWORD: root
+      PMA_ARBITRARY: 1
     networks:
       - tuckshop_network
     ports:
       - "8080:80"
-  api:
-    restart: on-failure
-    container_name: tuckshop_api
-    depends_on: 
-      - db
-    build:
-      context: ./tuckshop_api
-      dockerfile: dockerfile
-    volumes:
-      - "./volume/tuckshop_api:/usr/src/app/tuckshop_api"
-    environment:
-      DB_MYSQL_HOST: ${DB_MYSQL_HOST}
-      DB_MYSQL_USER: ${MYSQL_USER}
-      DB_MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      DB_MYSQL_DATABASE: ${MYSQL_DATABASE}
-    ports:
-      - "4000:4000"
-    networks:
-      - tuckshop_network
-  client:
-    restart: always
-    depends_on: 
-      - db
-    build:
-      context: ./tuckshop_client
-      dockerfile: dockerfile
-    ports:
-      - "3000:3000"
-    networks:
-      - tuckshop_network
+  # api:
+  #   restart: on-failure
+  #   container_name: tuckshop_api
+  #   depends_on: 
+  #     - db
+  #   build:
+  #     context: ./tuckshop_api
+  #     dockerfile: dockerfile
+  #   volumes:
+  #     - "./volume/tuckshop_api:/usr/src/app/tuckshop_api"
+  #   environment:
+  #     DB_MYSQL_HOST: ${DB_MYSQL_HOST}
+  #     DB_MYSQL_USER: ${MYSQL_USER}
+  #     DB_MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+  #     DB_MYSQL_DATABASE: ${MYSQL_DATABASE}
+  #   ports:
+  #     - "4000:4000"
+  #   networks:
+  #     - tuckshop_network
+  # client:
+  #   restart: always
+  #   depends_on: 
+  #     - db
+  #   build:
+  #     context: ./tuckshop_client
+  #     dockerfile: dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - tuckshop_network
 networks:
     tuckshop_network:
         driver: bridge
