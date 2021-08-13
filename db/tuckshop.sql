@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
--- Host: db
--- Generation Time: Apr 29, 2021 at 02:08 PM
--- Server version: 5.7.26
--- PHP Version: 7.4.16
+-- Host: 127.0.0.1
+-- Generation Time: Aug 13, 2021 at 09:41 AM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 5.6.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -54,45 +53,17 @@ INSERT INTO `tbl_event` (`id`, `name`, `manager_id`, `fooditem_list_id`, `create
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_event_items`
---
-
-CREATE TABLE `tbl_event_items` (
-  `id` int(255) NOT NULL,
-  `event_id` int(255) NOT NULL,
-  `item_id` int(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Truncate table before insert `tbl_event_items`
---
-
-TRUNCATE TABLE `tbl_event_items`;
---
--- Dumping data for table `tbl_event_items`
---
-
-INSERT INTO `tbl_event_items` (`id`, `event_id`, `item_id`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 3),
-(4, 1, 4),
-(5, 1, 5);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tbl_items`
 --
 
 CREATE TABLE `tbl_items` (
   `id` int(225) NOT NULL,
+  `event_id` int(225) NOT NULL,
   `name` varchar(225) NOT NULL,
   `price` varchar(225) NOT NULL,
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `serving` varchar(225) NOT NULL,
-  `currency` varchar(225) NOT NULL DEFAULT 'inr',
-  `img_src` varchar(225) DEFAULT NULL
+  `currency` varchar(225) NOT NULL DEFAULT 'inr'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -104,16 +75,30 @@ TRUNCATE TABLE `tbl_items`;
 -- Dumping data for table `tbl_items`
 --
 
-INSERT INTO `tbl_items` (`id`, `name`, `price`, `created_on`, `serving`, `currency`, `img_src`) VALUES
-(1, 'Chocolate Doughnuts', '30', '2020-06-27 07:14:25', '2/plate', 'inr', NULL),
-(2, 'Cupcakes', '50', '2020-06-27 07:14:25', '2/plate', 'inr', NULL),
-(3, 'Casserolls', '30', '2020-06-27 19:13:25', '2/plate', 'inr', NULL),
-(4, 'Quesadilla', '50', '2020-06-27 19:13:25', '2/plate', 'inr', NULL),
-(5, 'Croquettes', '30', '2020-06-27 19:14:12', '3/plate', 'inr', NULL),
-(7, 'Apple Pie', '70', '2021-03-26 09:48:34', '1/plate', 'inr', NULL),
-(8, 'Maska Pav', '50', '2021-04-27 19:00:14', '2/plate', 'inr', NULL),
-(10, 'fat kat', '10', '2021-04-28 18:52:53', '1/plate', 'inr', 'image_1619635973556.jpg');
+INSERT INTO `tbl_items` (`id`, `event_id`, `name`, `price`, `created_on`, `serving`, `currency`) VALUES
+(1, 1, 'Chocolate Doughnuts', '30', '2020-06-27 07:14:25', '2/plate', 'inr'),
+(2, 1, 'Cupcakes', '50', '2020-06-27 07:14:25', '2/plate', 'inr'),
+(3, 1, 'Casserolls', '30', '2020-06-27 19:13:25', '2/plate', 'inr'),
+(4, 1, 'Quesadilla', '50', '2020-06-27 19:13:25', '2/plate', 'inr'),
+(5, 1, 'Croquettes', '30', '2020-06-27 19:14:12', '3/plate', 'inr');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_item_images`
+--
+
+CREATE TABLE `tbl_item_images` (
+  `id` int(11) NOT NULL,
+  `tbl_items_id` int(255) NOT NULL,
+  `file_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Truncate table before insert `tbl_item_images`
+--
+
+TRUNCATE TABLE `tbl_item_images`;
 -- --------------------------------------------------------
 
 --
@@ -210,17 +195,16 @@ ALTER TABLE `tbl_event`
   ADD KEY `manager_fk` (`manager_id`);
 
 --
--- Indexes for table `tbl_event_items`
---
-ALTER TABLE `tbl_event_items`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `event_id` (`event_id`),
-  ADD KEY `item_id` (`item_id`);
-
---
 -- Indexes for table `tbl_items`
 --
 ALTER TABLE `tbl_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `event_fk` (`event_id`);
+
+--
+-- Indexes for table `tbl_item_images`
+--
+ALTER TABLE `tbl_item_images`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -254,37 +238,31 @@ ALTER TABLE `tbl_user_type`
 --
 ALTER TABLE `tbl_event`
   MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `tbl_event_items`
---
-ALTER TABLE `tbl_event_items`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `tbl_items`
 --
 ALTER TABLE `tbl_items`
-  MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
+  MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+--
+-- AUTO_INCREMENT for table `tbl_item_images`
+--
+ALTER TABLE `tbl_item_images`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 --
 -- AUTO_INCREMENT for table `tbl_sales`
 --
 ALTER TABLE `tbl_sales`
   MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
 --
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `tbl_user_type`
 --
 ALTER TABLE `tbl_user_type`
   MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- Constraints for dumped tables
 --
@@ -296,11 +274,10 @@ ALTER TABLE `tbl_event`
   ADD CONSTRAINT `manager_fk` FOREIGN KEY (`manager_id`) REFERENCES `tbl_users` (`id`);
 
 --
--- Constraints for table `tbl_event_items`
+-- Constraints for table `tbl_items`
 --
-ALTER TABLE `tbl_event_items`
-  ADD CONSTRAINT `tbl_event_items_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `tbl_event` (`id`),
-  ADD CONSTRAINT `tbl_event_items_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `tbl_items` (`id`);
+ALTER TABLE `tbl_items`
+  ADD CONSTRAINT `event_fk` FOREIGN KEY (`event_id`) REFERENCES `tbl_event` (`id`);
 
 --
 -- Constraints for table `tbl_sales`
@@ -316,7 +293,6 @@ ALTER TABLE `tbl_sales`
 ALTER TABLE `tbl_users`
   ADD CONSTRAINT `fk_usertype` FOREIGN KEY (`tbl_user_type_id`) REFERENCES `tbl_user_type` (`id`),
   ADD CONSTRAINT `tbl_users_ibfk_1` FOREIGN KEY (`tbl_user_type_id`) REFERENCES `tbl_user_type` (`id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
