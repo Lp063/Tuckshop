@@ -50,7 +50,8 @@ services:
       context: ./tuckshop_api
       dockerfile: dockerfile
     volumes:
-      - "./volume/tuckshop_api:/usr/src/app"
+      - "./tuckshop_api:/usr/src/app"
+    command: npx nodemon -L
     environment:
       DB_MYSQL_HOST: ${DB_MYSQL_HOST}
       DB_MYSQL_USER: ${MYSQL_USER}
