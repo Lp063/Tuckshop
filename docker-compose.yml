@@ -41,25 +41,25 @@ services:
       - tuckshop_network
     ports:
       - "8080:80"
-  # api:
-  #   restart: on-failure
-  #   container_name: tuckshop_api
-  #   depends_on: 
-  #     - db
-  #   build:
-  #     context: ./tuckshop_api
-  #     dockerfile: dockerfile
-  #   volumes:
-  #     - "./volume/tuckshop_api:/usr/src/app/tuckshop_api"
-  #   environment:
-  #     DB_MYSQL_HOST: ${DB_MYSQL_HOST}
-  #     DB_MYSQL_USER: ${MYSQL_USER}
-  #     DB_MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-  #     DB_MYSQL_DATABASE: ${MYSQL_DATABASE}
-  #   ports:
-  #     - "4000:4000"
-  #   networks:
-  #     - tuckshop_network
+  api:
+    restart: on-failure
+    container_name: tuckshop_api
+    depends_on: 
+      - db
+    build:
+      context: ./tuckshop_api
+      dockerfile: dockerfile
+    volumes:
+      - "./volume/tuckshop_api:/usr/src/app"
+    environment:
+      DB_MYSQL_HOST: ${DB_MYSQL_HOST}
+      DB_MYSQL_USER: ${MYSQL_USER}
+      DB_MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      DB_MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "4000:4000"
+    networks:
+      - tuckshop_network
   # client:
   #   restart: always
   #   depends_on: 
