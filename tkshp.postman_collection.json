@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "34e2425e-e6d5-438d-9694-902584a0cfaf",
+		"name": "tkshp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"manager@gmail.com\",\r\n    \"password\":\"manager123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4000/api/login",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "foodItems",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/a842132/Documents/sample.jpg",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "cupcakes",
+							"type": "default"
+						},
+						{
+							"key": "price",
+							"value": "price1",
+							"type": "default"
+						},
+						{
+							"key": "serving",
+							"value": "serving1",
+							"type": "default"
+						},
+						{
+							"key": "eventid",
+							"value": "event1",
+							"type": "default"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4000/foodItems",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"foodItems"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJpZCI6MiwidXNlcm5hbWUiOiJtYW5hZ2VyIiwicGFzc3dvcmQiOiJtYW5hZ2VyMTIzIiwiZW1haWwiOiJtYW5hZ2VyQGdtYWlsLmNvbSIsInRibF91c2VyX3R5cGVfaWQiOjIsInNlbmlvcl9pZCI6MSwiY3JlYXRpb25fdGltZSI6IjIwMjAtMDYtMjNUMDg6MDQ6MzEuMDAwWiIsInVwZGF0ZV90aW1lIjoiMjAyMC0wNi0yN1QwNzowMDoyMS4wMDBaIn0sImlhdCI6MTY1NzE5NTY4OSwiZXhwIjoxNjU3MTk5Mjg5fQ.tAmygeNtKb_a41vDiHUO3FftPPkf3xbfvI9GpTgaXhI",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

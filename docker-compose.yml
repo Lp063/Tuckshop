@@ -40,7 +40,7 @@ services:
     networks:
       - tuckshop_network
     ports:
-      - "8080:80"
+      - "8081:80"
   api:
     restart: on-failure
     container_name: tuckshop_api
